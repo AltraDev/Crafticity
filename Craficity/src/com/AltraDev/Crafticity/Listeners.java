@@ -35,9 +35,9 @@ public class Listeners implements Listener {
 		Entity entity = event.getEntity();
 		 
 		if (entity instanceof Player) {
-		Player p = (Player) entity;
-		p.sendMessage(ChatColor.GREEN + "A sign has been placed at your death spot!");
-		deathSign(p, event.getEntity().getLocation().getBlock());
+			Player p = (Player) entity;
+			p.sendMessage(ChatColor.GREEN + "A sign has been placed at your death spot!");
+			deathSign(p, event.getEntity().getLocation().getBlock());
 		
 		}
 		
