@@ -39,7 +39,6 @@ public class Listeners implements Listener {
 		s.update(true);
 		}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void playerLeave(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
