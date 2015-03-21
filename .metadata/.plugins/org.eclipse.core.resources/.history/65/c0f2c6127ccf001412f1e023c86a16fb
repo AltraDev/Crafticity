@@ -1,0 +1,5 @@
+package com.AltraDev.Crafticity;
+
+public class Crafticity exteneds JavaPlugin {
+
+}

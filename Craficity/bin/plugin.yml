@@ -1,0 +1,6 @@
+name: Crafticity
+version: 1
+main: me.AltraDev.Crafticity.Crafticity
+description: The main plugin for the crafticity server.
+commands:
+permissions:
