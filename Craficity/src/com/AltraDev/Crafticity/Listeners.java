@@ -1,6 +1,7 @@
 package com.AltraDev.Crafticity;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class Listeners implements Listener {
 	
@@ -29,6 +31,13 @@ public class Listeners implements Listener {
 		s.update(true);
 		}
 	
+	@SuppressWarnings("deprecation")
+	@EventHandler
+	public void playerLeave(PlayerQuitEvent e) {
+		Player p = e.getPlayer();
+		
+		p.playEffect(p.getLocation(), Effect.SMOKE, 20);
+	}
 	@EventHandler
 	public void onPlayerDeath(EntityDeathEvent event) {
 		
