@@ -48,8 +48,7 @@ public class Crafticity extends JavaPlugin {
 		
 			   return true;
 			   
-			   //End of poke command
-			   //Test
+			   //End of poke command!
 		}
 		return true;
 	}
