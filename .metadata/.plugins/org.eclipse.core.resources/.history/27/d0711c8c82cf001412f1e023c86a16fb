@@ -9,7 +9,7 @@ import com.AltraDev.Crafticity.References;
 
 import com.AltraDev.Crafticity.Listeners;
 
-public class Crafticity extends JavaPlugin {
+public class crafticity extends JavaPlugin {
 	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Bukkit.getServer().getLogger().info("Crafticity has been enabled!");
