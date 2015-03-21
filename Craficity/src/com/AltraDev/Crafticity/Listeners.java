@@ -21,6 +21,7 @@ public class Listeners implements Listener {
         
         World world = loc.getWorld();
         world.playEffect(loc, Effect.EXTINGUISH, 20);
+
     }
 	
 	@EventHandler
