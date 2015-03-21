@@ -1,6 +1,9 @@
 name: Crafticity
 version: 1
-main: me.AltraDev.Crafticity.Crafticity
+main: com.AltraDev.Crafticity.crafticity
 description: The main plugin for the crafticity server.
 commands:
+    test:
+        usage: /<command>
+        description: Test command dur dur.
 permissions:
