@@ -20,7 +20,7 @@ public class Listeners implements Listener {
     public void playSmoke (Location loc) {
         
         World world = loc.getWorld();
-        world.playEffect(loc, Effect.SMOKE, 20);
+        world.playEffect(loc, Effect.SMOKE, 200);
     }
 	
 	@EventHandler
