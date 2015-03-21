@@ -2,8 +2,10 @@ package com.AltraDev.Crafticity;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;
@@ -15,6 +17,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class Listeners implements Listener {
+    public void playSmoke (Location loc) {
+        
+        World world = loc.getWorld();
+        world.playEffect(loc, Effect.SMOKE, 20);
+    }
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
@@ -35,7 +42,7 @@ public class Listeners implements Listener {
 	@EventHandler
 	public void playerLeave(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
-		
+		playSmoke(p.getLocation());
 		p.playEffect(p.getLocation(), Effect.SMOKE, 20);
 	}
 	@EventHandler

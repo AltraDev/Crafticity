@@ -7,8 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.AltraDev.Crafticity.Reference;
 import com.AltraDev.Crafticity.Listeners;
 
 public class Crafticity extends JavaPlugin {
