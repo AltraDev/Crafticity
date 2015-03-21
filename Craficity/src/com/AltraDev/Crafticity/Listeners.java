@@ -20,7 +20,7 @@ public class Listeners implements Listener {
     public void playSmoke (Location loc) {
         
         World world = loc.getWorld();
-        world.playEffect(loc, Effect.SMOKE, 20);
+        world.playEffect(loc, Effect.EXTINGUISH, 20);
     }
 	
 	@EventHandler
@@ -43,7 +43,6 @@ public class Listeners implements Listener {
 	public void playerLeave(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		playSmoke(p.getLocation());
-		p.playEffect(p.getLocation(), Effect.SMOKE, 20);
 	}
 	@EventHandler
 	public void onPlayerDeath(EntityDeathEvent event) {
