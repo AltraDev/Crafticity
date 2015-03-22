@@ -29,16 +29,15 @@ public class Listeners implements Listener {
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		nPlay = nPlay + 1;
+		
 		Player p = e.getPlayer();
-			if (p.hasPlayedBefore()) {
-		p.playSound(p.getLocation(), Sound.GHAST_MOAN, 9, 1);
-		return;
-		} else {
+			if (p.hasPlayedBefore()) return;
+
+			nPlay = nPlay + 1;
 			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
-			Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "Welcome " + ChatColor.AQUA + p.getDisplayName() + ChatColor.GREEN + " to the server!  " + ChatColor.AQUA + nPlay + ChatColor.GREEN + " players have joined " + ChatColor.GOLD + "Crafticity");
+			Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "Welcome " + ChatColor.AQUA + p.getDisplayName() + ChatColor.GREEN + " to the server!  " + ChatColor.GREEN + "There has been " + ChatColor.AQUA + nPlay + ChatColor.GREEN + " new players that have joined " + ChatColor.GOLD + "Crafticity");
 		}
-	}
+	
 	
 	public void deathSign(Player p, Block b) {
 		b.setType(Material.SIGN_POST);
