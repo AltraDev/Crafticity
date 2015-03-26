@@ -1,6 +1,5 @@
 package com.AltraDev.Crafticity;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -17,8 +16,9 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+
 public class Listeners implements Listener {
-	int nPlay = 0;
+	
 	
     public void playSmoke (Location loc) {
         
@@ -31,11 +31,10 @@ public class Listeners implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		
 		Player p = e.getPlayer();
+		
 			if (p.hasPlayedBefore()) return;
 
-			nPlay = nPlay + 1;
 			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
-			Bukkit.getServer().broadcastMessage(ChatColor.GREEN + "Welcome " + ChatColor.AQUA + p.getDisplayName() + ChatColor.GREEN + " to the server!  " + ChatColor.GREEN + "There has been " + ChatColor.AQUA + nPlay + ChatColor.GREEN + " new players that have joined " + ChatColor.GOLD + "Crafticity");
 		}
 	
 	
