@@ -29,18 +29,20 @@ public class Crafticity extends JavaPlugin {
 	}
 
 	
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player) sender;
 		// Start of Poke Command
 		if (cmd.getName().equalsIgnoreCase("poke")) {
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.GOLD + "Use this command to poke someone!");
+				return true;
 			}
 			if (cooldown.contains(player.getUniqueId())) {
 				player.sendMessage(ChatColor.RED + "Poke is in cooldown!");
 				return true;
 			}
-			@SuppressWarnings("deprecation")
+			
 			Player target = Bukkit.getServer().getPlayer(args[0]);
 			if (target == null) {
 				sender.sendMessage(ChatColor.GOLD + "Could not find player");
