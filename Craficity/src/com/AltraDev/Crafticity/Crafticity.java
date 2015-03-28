@@ -57,28 +57,6 @@ public class Crafticity extends JavaPlugin {
 		return true;
 		//End of poke command!
 		}
-		//Beginning of Warning command for staff members
-		@SuppressWarnings("deprecation")
-		Player target = Bukkit.getServer().getPlayer(args[0]);
-		
-		if (cmd.getName().equalsIgnoreCase("warning")) {
-			if (!sender.hasPermission("crafticity.warning")) {
-				sender.sendMessage("You do not has permssion to create a warning!");
-				return true;
-			}
-			if (args.length == 0) {
-				sender.sendMessage("Usage: /warning <type> <level> <message>");
-				return true;
-			}
-			if (cmd.getName().equalsIgnoreCase("red")) {
-				if (args.length == 1) {
-				target.sendMessage(ChatColor.DARK_RED +"Warning! Warning! Code" + ChatColor.RED + "RED" + ChatColor.RED + "from" + ChatColor.RED + player);
-				return true;
-				}
-			}
-			
-			return true;
-		}
 		return true;
 	}
 	
