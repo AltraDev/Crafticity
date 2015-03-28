@@ -27,6 +27,7 @@ public class Crafticity extends JavaPlugin {
 		Bukkit.getServer().getLogger().info("Crafticity has been disabled!");
 		cooldown.clear();
 	}
+
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player) sender;
@@ -39,10 +40,8 @@ public class Crafticity extends JavaPlugin {
 				player.sendMessage(ChatColor.RED + "Poke is in cooldown!");
 				return true;
 			}
-			   
 			@SuppressWarnings("deprecation")
 			Player target = Bukkit.getServer().getPlayer(args[0]);
-			
 			if (target == null) {
 				sender.sendMessage(ChatColor.GOLD + "Could not find player");
 				return true;
@@ -60,19 +59,20 @@ public class Crafticity extends JavaPlugin {
 		}
 		//Beginning of Warning command for staff members
 		@SuppressWarnings("deprecation")
-		Player staff = Bukkit.getServer().getPlayer(args[0]);
+		Player target = Bukkit.getServer().getPlayer(args[0]);
+		
 		if (cmd.getName().equalsIgnoreCase("warning")) {
-			if (!staff.hasPermission("crafticity.warning")) {
-				staff.sendMessage("You do not has permssion to create a warning!");
+			if (!sender.hasPermission("crafticity.warning")) {
+				sender.sendMessage("You do not has permssion to create a warning!");
 				return true;
 			}
 			if (args.length == 0) {
-				staff.sendMessage("Usage: /warning <type> <level> <message>");
+				sender.sendMessage("Usage: /warning <type> <level> <message>");
 				return true;
 			}
 			if (cmd.getName().equalsIgnoreCase("red")) {
 				if (args.length == 1) {
-				staff.sendMessage(ChatColor.DARK_RED +"Warning! Warning! Code" + ChatColor.RED + "RED" + ChatColor.RED + "from" + ChatColor.RED + player);
+				target.sendMessage(ChatColor.DARK_RED +"Warning! Warning! Code" + ChatColor.RED + "RED" + ChatColor.RED + "from" + ChatColor.RED + player);
 				return true;
 				}
 			}
