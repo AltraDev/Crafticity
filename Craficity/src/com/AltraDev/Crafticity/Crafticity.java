@@ -5,11 +5,15 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.AltraDev.Crafticity.Listeners;
 
@@ -28,6 +32,14 @@ public class Crafticity extends JavaPlugin {
 		cooldown.clear();
 	}
 
+    public void spawnVillager(Location loc, String name) {
+        Villager v = (Villager) loc.getWorld().spawn(loc, Villager.class);
+        v.setCustomName(name);
+        v.setCustomNameVisible(true);
+        v.setAdult();
+        v.setAgeLock(true);
+        v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10000*10000, 20));
+    }
 	
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -59,6 +71,11 @@ public class Crafticity extends JavaPlugin {
 			cooldown(player);
 		return true;
 		//End of poke command!
+		}
+		if (cmd.getName().equalsIgnoreCase("svr")) {
+			Player p = (Player) sender;
+			spawnVillager(p.getLocation(), "Hi Bp");
+			return true;
 		}
 		return true;
 	}
