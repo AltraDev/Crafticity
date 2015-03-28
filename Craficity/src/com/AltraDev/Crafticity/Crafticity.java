@@ -68,10 +68,12 @@ public class Crafticity extends JavaPlugin {
 			}
 			if (args.length == 0) {
 				staff.sendMessage("Usage: /warning <type> <level> <message>");
+				return true;
 			}
 			if (cmd.getName().equalsIgnoreCase("red")) {
 				if (args.length == 1) {
 				staff.sendMessage(ChatColor.DARK_RED +"Warning! Warning! Code" + ChatColor.RED + "RED" + ChatColor.RED + "from" + ChatColor.RED + player);
+				return true;
 				}
 			}
 			

@@ -6,4 +6,10 @@ commands:
     test:
         usage: /<command>
         description: Test command dur dur.
+    warning:
+        usage: /<command> <type> <level> <message> <player>
+        description: Warn staff about hackers or something!
 permissions:
+    crafticity.warning:
+        description: Permission to do /warning!
+        default: op
