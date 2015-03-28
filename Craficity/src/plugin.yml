@@ -3,13 +3,9 @@ version: 1
 main: com.AltraDev.Crafticity.Crafticity
 description: The main plugin for the crafticity server.
 commands:
-    test:
+    poke:
         usage: /<command>
-        description: Test command dur dur.
-    warning:
-        usage: /<command> <type> <level> <message> <player>
-        description: Warn staff about hackers or something!
+        description: Poke other players.
+
 permissions:
-    crafticity.warning:
-        description: Permission to do /warning!
-        default: op
+   
