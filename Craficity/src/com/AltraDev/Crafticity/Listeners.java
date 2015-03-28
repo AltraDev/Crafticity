@@ -17,13 +17,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 
 
-public class Listeners implements Listener {
+public class Listeners extends JavaPlugin implements Listener {
 	
 	
     public void playSmoke (Location loc) {
@@ -40,7 +40,7 @@ public class Listeners implements Listener {
         v.setAdult();
         v.setAgeLock(true);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10000*10000, 20));
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask((Plugin) this, new Runnable() {
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
      	   public void run() {
      	    v.setHealth(0.0);
      	   }
