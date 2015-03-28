@@ -6,6 +6,8 @@ commands:
     poke:
         usage: /<command>
         description: Poke other players.
-
+    svr:
+        usage: /<command>
+        description: Spawn a villager
 permissions:
    
