@@ -54,6 +54,7 @@ public class Crafticity extends JavaPlugin {
 			
 			target.playSound(target.getLocation(), Sound.NOTE_PLING, 10, 1);
 			target.sendMessage(ChatColor.AQUA + sender.getName() + ChatColor.GOLD + " has poked you!");
+			cooldown(player);
 		return true;
 		//End of poke command!
 		}
