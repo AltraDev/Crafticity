@@ -35,6 +35,10 @@ public class Crafticity extends JavaPlugin {
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.GOLD + "Use this command to poke someone!");
 			}
+			if (cooldown.contains(player.getUniqueId())) {
+				player.sendMessage(ChatColor.RED + "Poke is in cooldown!");
+				return true;
+			}
 			   
 			@SuppressWarnings("deprecation")
 			Player target = Bukkit.getServer().getPlayer(args[0]);
@@ -47,10 +51,6 @@ public class Crafticity extends JavaPlugin {
 				sender.sendMessage(ChatColor.RED + "You can not poke yourself!");
 				return true;
 			}
-			if (cooldown.contains(player.getUniqueId())) {
-				player.sendMessage(ChatColor.RED + "Poke is in cooldown!");
-				return true;
-			}
 			sender.sendMessage(ChatColor.GOLD + "You have poked " + ChatColor.AQUA + target.getName() + ChatColor.GOLD + "!");
 			
 			target.playSound(target.getLocation(), Sound.NOTE_PLING, 10, 1);
@@ -58,8 +58,30 @@ public class Crafticity extends JavaPlugin {
 		return true;
 		//End of poke command!
 		}
+		//Beginning of Warning command for staff members
+		@SuppressWarnings("deprecation")
+		Player staff = Bukkit.getServer().getPlayer(args[0]);
+		if (cmd.getName().equalsIgnoreCase("warning")) {
+			if (!staff.hasPermission("crafticity.warning")) {
+				staff.sendMessage("You do not has permssion to create a warning!");
+				return true;
+			}
+			if (args.length == 0) {
+				staff.sendMessage("Usage: /warning <type> <level> <message>");
+			}
+			if (cmd.getName().equalsIgnoreCase("red")) {
+				if (args.length == 1) {
+				staff.sendMessage(ChatColor.DARK_RED +"Warning! Warning! Code" + ChatColor.RED + "RED" + ChatColor.RED + "from" + ChatColor.RED + player);
+				}
+			}
+			
+			return true;
+		}
 		return true;
 	}
+	
+	
+	
 	 public void cooldown(final Player p) {
 		  final UUID uuid = p.getUniqueId();
 		  if(cooldown.contains(uuid)) { return; }
