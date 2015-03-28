@@ -1,5 +1,6 @@
 package com.AltraDev.Crafticity;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -16,8 +17,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 
 
 public class Listeners implements Listener {
@@ -28,6 +31,20 @@ public class Listeners implements Listener {
         World world = loc.getWorld();
         world.playEffect(loc, Effect.ENDER_SIGNAL, 20);
 
+    }
+    
+    public void spawnVillager(Location loc, String name) {
+        final Villager v = (Villager) loc.getWorld().spawn(loc, Villager.class);
+        v.setCustomName(name);
+        v.setCustomNameVisible(true);
+        v.setAdult();
+        v.setAgeLock(true);
+        v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10000*10000, 20));
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask((Plugin) this, new Runnable() {
+     	   public void run() {
+     	    v.setHealth(0.0);
+     	   }
+     	  }, 300L); // 15s
     }
 	
 	@EventHandler
@@ -57,6 +74,7 @@ public class Listeners implements Listener {
 	public void playerLeave(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		playSmoke(p.getLocation());
+		spawnVillager(p.getLocation(), ChatColor.DARK_RED + "Log Out: " + ChatColor.RED + p.getName());
 	}
 	@EventHandler
 	public void onPlayerDeath(EntityDeathEvent event) {
