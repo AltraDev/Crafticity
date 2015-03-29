@@ -10,7 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -32,24 +32,23 @@ public class Listeners implements Listener {
     }
     
     public void spawnVillager(Location loc, String name) {
-        final Villager v = (Villager) loc.getWorld().spawn(loc, Villager.class);
+        final Zombie v = (Zombie) loc.getWorld().spawn(loc, Zombie.class);
         v.setCustomName(name);
         v.setCustomNameVisible(true);
-        v.setAdult();
-        v.setAgeLock(true);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10000*10000, 20));
-        v.setHealth(1.0);
+        v.setHealth(0.5);
         v.getRemoveWhenFarAway();
+        v.setCanPickupItems(false);
+        v.hasLineOfSight(null);
     }
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		
 		Player p = e.getPlayer();
-		
-			if (p.hasPlayedBefore()) return;
 
-			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
+		p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
+		
 		}
 	
 	//Death Signs
