@@ -16,7 +16,7 @@ import com.AltraDev.Crafticity.Listeners;
 
 public class Crafticity extends JavaPlugin {
 	
-	private ArrayList<UUID> cooldown = new ArrayList<UUID>();
+	public ArrayList<UUID> cooldown = new ArrayList<UUID>();
 	
 	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(new Listeners(), this);
@@ -58,13 +58,11 @@ public class Crafticity extends JavaPlugin {
 			target.playSound(target.getLocation(), Sound.NOTE_PLING, 10, 1);
 			target.sendMessage(ChatColor.AQUA + sender.getName() + ChatColor.GOLD + " has poked you!");
 			cooldown(player);
+			
 		return true;
+		}
 		//End of poke command!
-		}
-		if (cmd.getName().equalsIgnoreCase("svr")) {
-			Player p = (Player) sender;
-			return true;
-		}
+		
 		return true;
 	}
 	

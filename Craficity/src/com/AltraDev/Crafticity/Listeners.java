@@ -1,5 +1,6 @@
 package com.AltraDev.Crafticity;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -13,9 +14,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -40,6 +42,13 @@ public class Listeners implements Listener {
         v.getRemoveWhenFarAway();
         v.setCanPickupItems(false);
         v.hasLineOfSight(null);
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask((Plugin) this, new Runnable() {
+			@Override 
+		    public void run() {
+		        v.setHealth(0.0);
+		    }
+		 
+		}, 500L);
     }
 	
 	@EventHandler
@@ -56,9 +65,9 @@ public class Listeners implements Listener {
 	public void deathSign(Player p, Block b) {
 		b.setType(Material.SIGN_POST);
 		 
-		Sign s = (Sign) b.getState();
+		final Sign s = (Sign) b.getState();
 		s.setLine(0, ChatColor.RED + "Rest In Peace");
-		s.setLine(2, ChatColor.GOLD + p.getName());
+		s.setLine(2, ChatColor.GREEN + p.getName());
 		s.update(true);
 		}
 	//Villager spawning
@@ -71,16 +80,14 @@ public class Listeners implements Listener {
 		spawnVillager(p.getLocation(), ChatColor.DARK_RED + "Log Out: " + ChatColor.RED + p.getName());
 	}
 	@EventHandler
-	public void onPlayerDeath(EntityDeathEvent event) {
+	public void onPlayerDeath(PlayerDeathEvent event) {
 		
 		Entity entity = event.getEntity();
 		 
-		if (entity instanceof Player) {
-			Player p = (Player) entity;
-			p.sendMessage(ChatColor.GREEN + "A sign has been placed at your death spot!");
-			deathSign(p, event.getEntity().getLocation().getBlock());
-		
-		}
+		Player p = (Player) entity;
+		p.sendMessage(ChatColor.GREEN + "A sign has been placed at your death spot!");
+		deathSign(p, event.getEntity().getLocation().getBlock());
 		
 	}
+
 }
