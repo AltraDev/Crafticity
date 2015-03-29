@@ -39,6 +39,7 @@ public class Listeners implements Listener {
         v.setAgeLock(true);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10000*10000, 20));
         v.setHealth(1.0);
+        v.getRemoveWhenFarAway();
     }
 	
 	@EventHandler
