@@ -27,15 +27,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 
-
-
-
-
-
-
 public class Crafticity extends JavaPlugin implements Listener {
 	
-	public ArrayList<UUID> cooldown = new ArrayList<UUID>();
+	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
 	
 	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
@@ -65,11 +59,13 @@ public class Crafticity extends JavaPlugin implements Listener {
         v.setHealth(0.5);
         v.setRemoveWhenFarAway(true);
         v.setCanPickupItems(false);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-	      	  public void run() {
-	      		  v.setHealth(0.0);
-	      	  }
-	      	}, 500L);
+        if (v.isDead() == false) {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+  	      	  public void run() {
+  	      		  v.setHealth(0.0);
+  	      	  }
+  	      	}, 200L);
+        }
     }
 	
 // BEGINNING OF COMMANDS!
@@ -161,7 +157,6 @@ public class Crafticity extends JavaPlugin implements Listener {
 		public void onPlayerJoin(PlayerJoinEvent e) {
 			
 			Player p = e.getPlayer();
-
 			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
 			
 			}
