@@ -64,7 +64,7 @@ public class Crafticity extends JavaPlugin implements Listener {
   	      	  public void run() {
   	      		  v.setHealth(0.0);
   	      	  }
-  	      	}, 200L);
+  	      	}, 200);
         }
     }
 	
