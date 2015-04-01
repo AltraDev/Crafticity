@@ -29,6 +29,12 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Crafticity extends JavaPlugin implements Listener {
 	
+	/*
+	 TODO: 
+	 	Make a announcer
+	 	Make the join book
+	 	Make the admin gem
+	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
 	
 	public void onEnable() {
@@ -59,14 +65,13 @@ public class Crafticity extends JavaPlugin implements Listener {
         v.setHealth(0.5);
         v.setRemoveWhenFarAway(true);
         v.setCanPickupItems(false);
-        if (v.isDead() == false) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
   	      	  public void run() {
   	      		  v.setHealth(0.0);
   	      	  }
-  	      	}, 200);
+  	      	}, 200L);
         }
-    }
+    
 	
 // BEGINNING OF COMMANDS!
 	@SuppressWarnings("deprecation")
