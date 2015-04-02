@@ -23,6 +23,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -38,6 +40,9 @@ public class Crafticity extends JavaPlugin implements Listener {
 	 	Make the admin gem
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
+	
+	ItemStack bs = new ItemStack(Material.ENCHANTED_BOOK);
+	BookMeta bm = (BookMeta) bs.getItemMeta();
 	
 	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
@@ -167,6 +172,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 			
 			if (!p.hasPlayedBefore()) {
 				inv.clear();
+				inv.setItem(9, bs);
 				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
 			} else {
 				p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
