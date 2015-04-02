@@ -6,5 +6,9 @@ commands:
     poke:
         usage: /<command>
         description: Poke other players.
+    testbook:
+        usage: /<command>
+        description: Testing books
+    
 permissions:
    

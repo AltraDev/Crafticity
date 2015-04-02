@@ -32,7 +32,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Crafticity extends JavaPlugin implements Listener {
 	
-	private Inventory inv;
+	
+	
 	/*
 	 TODO: 
 	 	Make a announcer
@@ -41,8 +42,6 @@ public class Crafticity extends JavaPlugin implements Listener {
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
 	
-	ItemStack bs = new ItemStack(Material.ENCHANTED_BOOK);
-	BookMeta bm = (BookMeta) bs.getItemMeta();
 	
 	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
@@ -118,7 +117,16 @@ public class Crafticity extends JavaPlugin implements Listener {
 		return true;
 		}
 		//End of poke command!
-		
+		if (cmd.getName().equalsIgnoreCase("Testbook")) {
+			ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
+			BookMeta bm = (BookMeta) bs.getItemMeta();
+			bm.addPage(ChatColor.DARK_AQUA + "&lWelcome to Crafticity!\n");
+			bs.setItemMeta(bm);
+			Inventory inv = player.getInventory();
+			inv.clear();
+			player.getInventory().setItem(2, bs);
+			return true;
+		}
 		return true;
 	}
 // END OF COMMANDS
@@ -167,23 +175,14 @@ public class Crafticity extends JavaPlugin implements Listener {
 		
 		@EventHandler
 		public void onPlayerJoin(PlayerJoinEvent e) {
-			
 			Player p = e.getPlayer();
-			
-			if (p.hasPlayedBefore()) {
-				inv.clear();
-				/*
-				 Add in the Book Meta
-				 */
-				inv.setItem(9, bs);
-				bm.addPage("This is a page\n and this is another line!");
-				bs.setItemMeta(bm);
+			if (!p.hasPlayedBefore()) {
 				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
 			} else {
 				p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
 			}
 			
-			}
+		}
 		
 		@EventHandler
 		public void playerLeave(PlayerQuitEvent e) {
