@@ -22,6 +22,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -29,6 +30,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Crafticity extends JavaPlugin implements Listener {
 	
+	private Inventory inv;
 	/*
 	 TODO: 
 	 	Make a announcer
@@ -162,7 +164,13 @@ public class Crafticity extends JavaPlugin implements Listener {
 		public void onPlayerJoin(PlayerJoinEvent e) {
 			
 			Player p = e.getPlayer();
-			p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
+			
+			if (!p.hasPlayedBefore()) {
+				inv.clear();
+				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
+			} else {
+				p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
+			}
 			
 			}
 		
