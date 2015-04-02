@@ -36,7 +36,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 	/*
 	 TODO: 
 	 	Make a announcer
-	 	Make the join book
+	 	Make the join book (BookMeta now)
 	 	Make the admin gem
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
@@ -170,9 +170,14 @@ public class Crafticity extends JavaPlugin implements Listener {
 			
 			Player p = e.getPlayer();
 			
-			if (!p.hasPlayedBefore()) {
+			if (p.hasPlayedBefore()) {
 				inv.clear();
+				/*
+				 Add in the Book Meta
+				 */
 				inv.setItem(9, bs);
+				bm.addPage("This is a page\n and this is another line!");
+				bs.setItemMeta(bm);
 				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
 			} else {
 				p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
