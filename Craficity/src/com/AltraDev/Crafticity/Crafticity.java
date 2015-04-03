@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import static org.bukkit.ChatColor.*;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -87,31 +87,31 @@ public class Crafticity extends JavaPlugin implements Listener {
 		if (cmd.getName().equalsIgnoreCase("poke")) {
 			
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.GOLD + "Use this command to poke someone!");
+				sender.sendMessage(GOLD + "Use this command to poke someone!");
 				return true;
 			}
 			
 			if (cooldown.contains(player.getUniqueId())) {
-				player.sendMessage(ChatColor.RED + "Poke is in cooldown!");
+				player.sendMessage(RED + "Poke is in cooldown!");
 				return true;
 			}
 			
 			Player target = Bukkit.getServer().getPlayer(args[0]);
 			
 			if (target == null) {
-				sender.sendMessage(ChatColor.GOLD + "Could not find player");
+				sender.sendMessage(GOLD + "Could not find player");
 				return true;
 			}
 			
 			if (target == sender) {
-				sender.sendMessage(ChatColor.RED + "You can not poke yourself!");
+				sender.sendMessage(RED + "You can not poke yourself!");
 				return true;
 			}
 			
-			sender.sendMessage(ChatColor.GOLD + "You have poked " + ChatColor.AQUA + target.getName() + ChatColor.GOLD + "!");
+			sender.sendMessage(GOLD + "You have poked " + AQUA + target.getName() + GOLD + "!");
 			
 			target.playSound(target.getLocation(), Sound.NOTE_PLING, 10, 1);
-			target.sendMessage(ChatColor.AQUA + sender.getName() + ChatColor.GOLD + " has poked you!");
+			target.sendMessage(AQUA + sender.getName() + GOLD + " has poked you!");
 			cooldown(player);
 			
 		return true;
@@ -120,7 +120,8 @@ public class Crafticity extends JavaPlugin implements Listener {
 		if (cmd.getName().equalsIgnoreCase("Testbook")) {
 			ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
 			BookMeta bm = (BookMeta) bs.getItemMeta();
-			bm.addPage(ChatColor.DARK_AQUA + "&lWelcome to Crafticity!\n");
+			bm.addPage(DARK_AQUA + "" + BOLD + "Crafticity! \n"
+					);
 			bs.setItemMeta(bm);
 			Inventory inv = player.getInventory();
 			inv.clear();
@@ -136,11 +137,11 @@ public class Crafticity extends JavaPlugin implements Listener {
 		  final UUID uuid = p.getUniqueId();
 		  if(cooldown.contains(uuid)) { return; }
 		  cooldown.add(uuid);
-		  p.sendMessage(ChatColor.RED + "Poke is now in cooldown.");
+		  p.sendMessage(RED + "Poke is now in cooldown.");
 		  Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 		   public void run() {
 		    cooldown.remove(uuid);
-		    p.sendMessage(ChatColor.GREEN + "You can now poke somone again!");
+		    p.sendMessage(GREEN + "You can now poke somone again!");
 		   }
 		  }, 200);
 		 }
@@ -153,7 +154,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 			Entity entity = event.getEntity();
 			 
 			Player p = (Player) entity;
-			p.sendMessage(ChatColor.GREEN + "A sign has been placed at your death spot!");
+			p.sendMessage(GREEN + "A sign has been placed at your death spot!");
 			deathSign(p, event.getEntity().getLocation().getBlock());
 			
 		}
@@ -163,8 +164,8 @@ public class Crafticity extends JavaPlugin implements Listener {
 			b.setType(Material.SIGN_POST);
 			 
 			final Sign s = (Sign) b.getState();
-			s.setLine(0, ChatColor.RED + "Rest In Peace");
-			s.setLine(2, ChatColor.GREEN + p.getName());
+			s.setLine(0, RED + "Rest In Peace");
+			s.setLine(2, GREEN + p.getName());
 			s.update(true);
 	        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 	      	  public void run() {
@@ -188,7 +189,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		public void playerLeave(PlayerQuitEvent e) {
 			Player p = e.getPlayer();
 			playSmoke(p.getLocation());
-			spawnZombie(p.getLocation(), ChatColor.DARK_RED + "Log Out: " + ChatColor.RED + p.getName());
+			spawnZombie(p.getLocation(), DARK_RED + "Log Out: " + RED + p.getName());
 		}
 // END OF EVENT HANDLERS
 }
