@@ -44,8 +44,13 @@ public class Crafticity extends JavaPlugin implements Listener {
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
 	private Inventory inv;
+	Player pl;
 	ItemStack dia = new ItemStack(Material.DIAMOND);
 	ItemMeta diaMeta = dia.getItemMeta();
+	ItemStack admin = new ItemStack(Material.REDSTONE);
+	ItemMeta aMeta = admin.getItemMeta();
+	ItemStack mod = new ItemStack(Material.EMERALD);
+	ItemMeta mMeta = mod.getItemMeta();
 	
 	
 	public void onEnable() {
@@ -72,6 +77,9 @@ public class Crafticity extends JavaPlugin implements Listener {
         world.playEffect(loc, Effect.ENDER_SIGNAL, 20);
 
     }
+	public void show(Player p) {
+		p.openInventory(inv);
+	}
 	
 	
 // BEGINNING OF COMMANDS!
@@ -129,7 +137,9 @@ public class Crafticity extends JavaPlugin implements Listener {
 			if (!player.hasPermission("admingem.use")) {
 				player.sendMessage(RED + "You do not have permission for an " + DARK_AQUA + "AdminGem" + RED + "!");
 			} else {
-			player.getInventory().setItem(9, dia);
+				diaMeta.setDisplayName(DARK_AQUA + "AdminGem");
+				dia.setItemMeta(diaMeta);
+				player.getInventory().setItem(8, dia);
 			}
 			return true;
 		} //END OF THE ADMINGEM
@@ -181,13 +191,16 @@ public class Crafticity extends JavaPlugin implements Listener {
 		@EventHandler
 		public void onInteractEvent(PlayerInteractEvent e) {
 			Player p = e.getPlayer();
-			diaMeta.setDisplayName(DARK_AQUA + "AdminGem");
-			dia.setItemMeta(diaMeta);
-			
-			
 			if (!(e.getAction() == Action.RIGHT_CLICK_AIR)) return;
 				if (e.getItem().getType() == Material.DIAMOND) {
 					if (e.getItem().getItemMeta().equals(diaMeta)) {
+						inv = Bukkit.getServer().createInventory(null, 9, DARK_AQUA + "AdminGem");
+						aMeta.setDisplayName(RED + "Admin");
+						admin.setItemMeta(aMeta);
+						inv.setItem(2, admin);
+						mMeta.setDisplayName(GREEN + "Mod");
+						mod.setItemMeta(mMeta);
+						inv.setItem(6, mod);
 						p.openInventory(inv);
 					}
 				}
