@@ -61,23 +61,6 @@ public class Crafticity extends JavaPlugin implements Listener {
 
     }
 	
-    public void spawnZombie(Location loc, String name) {
-        final Zombie v = (Zombie) loc.getWorld().spawn(loc, Zombie.class);
-        v.setCustomName(name);
-        v.setCustomNameVisible(true);
-        v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10000*10000, 20));
-        v.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 10000*10000, 20));
-        v.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 10000*10000, 20));
-        v.setHealth(0.5);
-        v.setRemoveWhenFarAway(true);
-        v.setCanPickupItems(false);
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-  	      	  public void run() {
-  	      		  v.setHealth(0.0);
-  	      	  }
-  	      	}, 200L);
-        }
-    
 	
 // BEGINNING OF COMMANDS!
 	@SuppressWarnings("deprecation")
@@ -120,7 +103,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		if (cmd.getName().equalsIgnoreCase("Testbook")) {
 			ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
 			BookMeta bm = (BookMeta) bs.getItemMeta();
-			bm.addPage(DARK_AQUA + "" + BOLD + "Crafticity! \n"
+			bm.addPage(DARK_AQUA + "     " + BOLD + "Crafticity \n"
 					);
 			bs.setItemMeta(bm);
 			Inventory inv = player.getInventory();
@@ -189,7 +172,6 @@ public class Crafticity extends JavaPlugin implements Listener {
 		public void playerLeave(PlayerQuitEvent e) {
 			Player p = e.getPlayer();
 			playSmoke(p.getLocation());
-			spawnZombie(p.getLocation(), DARK_RED + "Log Out: " + RED + p.getName());
 		}
 // END OF EVENT HANDLERS
 }
