@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+
 import static org.bukkit.ChatColor.*;
+
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,12 +20,15 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -33,11 +38,14 @@ public class Crafticity extends JavaPlugin implements Listener {
 	
 	/*
 	 TODO: 
-	 	Make a announcer
+	 	Make a announcer - done
 	 	Make the join book (BookMeta now)
 	 	Make the admin gem
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
+	private Inventory inv;
+	ItemStack dia = new ItemStack(Material.DIAMOND);
+	ItemMeta diaMeta = dia.getItemMeta();
 	
 	
 	public void onEnable() {
@@ -120,6 +128,8 @@ public class Crafticity extends JavaPlugin implements Listener {
 		if (cmd.getName().equalsIgnoreCase("admingem")) {
 			if (!player.hasPermission("admingem.use")) {
 				player.sendMessage(RED + "You do not have permission for an " + DARK_AQUA + "AdminGem" + RED + "!");
+			} else {
+			player.getInventory().setItem(9, dia);
 			}
 			return true;
 		} //END OF THE ADMINGEM
@@ -168,7 +178,20 @@ public class Crafticity extends JavaPlugin implements Listener {
 	      	  }
 	      	}, 500L);
 			}
-		
+		@EventHandler
+		public void onInteractEvent(PlayerInteractEvent e) {
+			Player p = e.getPlayer();
+			diaMeta.setDisplayName(DARK_AQUA + "AdminGem");
+			dia.setItemMeta(diaMeta);
+			
+			
+			if (!(e.getAction() == Action.RIGHT_CLICK_AIR)) return;
+				if (e.getItem().getType() == Material.DIAMOND) {
+					if (e.getItem().getItemMeta().equals(diaMeta)) {
+						p.openInventory(inv);
+					}
+				}
+		}
 		@EventHandler
 		public void onPlayerJoin(PlayerJoinEvent e) {
 			Player p = e.getPlayer();
@@ -187,4 +210,5 @@ public class Crafticity extends JavaPlugin implements Listener {
 			playSmoke(p.getLocation());
 		}
 // END OF EVENT HANDLERS
+	
 }
