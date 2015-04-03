@@ -44,6 +44,13 @@ public class Crafticity extends JavaPlugin implements Listener {
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getLogger().info("Crafticity has been enabled!");
 		cooldown.clear();
+		
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				Bukkit.getServer().broadcastMessage(GRAY + "[" + RED + "Crafticity" + GRAY + "] " + DARK_AQUA + "Join our website and donate:"+ AQUA + " crafticity.enjin.com");
+			}
+		}, 20, 20 * 60 * 5);
+		
 	}
 	
 	public void onDisable() {
@@ -97,6 +104,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		return true;
 		}
 		//End of poke command!
+		//START OF THE SERVER BOOK COMMAND
 		if (cmd.getName().equalsIgnoreCase("Testbook")) {
 			ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
 			BookMeta bm = (BookMeta) bs.getItemMeta();
@@ -107,7 +115,14 @@ public class Crafticity extends JavaPlugin implements Listener {
 			inv.clear();
 			player.getInventory().setItem(2, bs);
 			return true;
-		}
+		} //END OF THE SERVER BOOK COMMAND
+		//START OF THE ADMINGEM
+		if (cmd.getName().equalsIgnoreCase("admingem")) {
+			if (!player.hasPermission("admingem.use")) {
+				player.sendMessage(RED + "You do not have permission for an " + DARK_AQUA + "AdminGem" + RED + "!");
+			}
+			return true;
+		} //END OF THE ADMINGEM
 		return true;
 	}
 // END OF COMMANDS
@@ -139,7 +154,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 			
 		}
 		
-		@EventHandler
+
 		public void deathSign(Player p, Block b) {
 			b.setType(Material.SIGN_POST);
 			 
@@ -157,6 +172,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		@EventHandler
 		public void onPlayerJoin(PlayerJoinEvent e) {
 			Player p = e.getPlayer();
+			
 			if (!p.hasPlayedBefore()) {
 				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
 			} else {

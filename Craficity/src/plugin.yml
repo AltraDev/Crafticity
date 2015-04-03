@@ -9,6 +9,12 @@ commands:
     testbook:
         usage: /<command>
         description: Testing books
+    admingem:
+        usage: /<command>
+        description: Admingem for staff!
     
 permissions:
+    admingem.use:
+        description: Admingem use
+        default: op
    
