@@ -265,8 +265,23 @@ public class Crafticity extends JavaPlugin implements Listener {
 					e.getWhoClicked().openInventory(ad);
 					}
 				}
+				if (e.getCurrentItem().getItemMeta().equals(mMeta)) {
+					md = Bukkit.getServer().createInventory(null, 36, GREEN + "Mod Section");
+					e.getWhoClicked().openInventory(md);
+				}
 			}
 			if (e.getInventory().equals(ad)) {
+			if (e.getCurrentItem().getItemMeta().equals(aCMeta)) {
+				if (e.getWhoClicked().getGameMode().equals(GameMode.SURVIVAL)) {
+					e.getWhoClicked().setGameMode(GameMode.CREATIVE);
+				}
+				else {
+					e.getWhoClicked().setGameMode(GameMode.SURVIVAL);
+				}
+			}
+			}
+		}
+			/*if (e.getInventory().equals(ad)) {
 				if (e.getCurrentItem().getItemMeta().equals(aCMeta)) {
 					e.getWhoClicked().openInventory(gm);
 				}
@@ -282,15 +297,10 @@ public class Crafticity extends JavaPlugin implements Listener {
 			if (e.getCurrentItem().getItemMeta().equals(survivalMeta)) {
 				e.getWhoClicked().setGameMode(GameMode.SURVIVAL);
 				}
-			} 
+			} */
 					
 					//Beginning of the Mod inventory
-			if (e.getCurrentItem().getItemMeta().equals(mMeta)) {
-					md = Bukkit.getServer().createInventory(null, 36, GREEN + "Mod Section");
-					e.getWhoClicked().openInventory(md);
-				
-						}
-				}
+
 	
 			
 		
