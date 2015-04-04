@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import static org.bukkit.ChatColor.*;
 
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -22,6 +23,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -43,7 +45,9 @@ public class Crafticity extends JavaPlugin implements Listener {
 	 	Make the admin gem
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
-	private Inventory inv;
+	private Inventory inv, ad, md, gm, players;
+	
+	
 	Player pl;
 	ItemStack dia = new ItemStack(Material.DIAMOND);
 	ItemMeta diaMeta = dia.getItemMeta();
@@ -62,7 +66,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 			public void run() {
 				Bukkit.getServer().broadcastMessage(GRAY + "[" + RED + "Crafticity" + GRAY + "] " + DARK_AQUA + "Join our website and donate:"+ AQUA + " crafticity.enjin.com");
 			}
-		}, 20, 20 * 60 * 5);
+		}, 20, 20 * 60 * 10);
 		
 	}
 	
@@ -77,9 +81,7 @@ public class Crafticity extends JavaPlugin implements Listener {
         world.playEffect(loc, Effect.ENDER_SIGNAL, 20);
 
     }
-	public void show(Player p) {
-		p.openInventory(inv);
-	}
+	
 	
 	
 // BEGINNING OF COMMANDS!
@@ -206,6 +208,72 @@ public class Crafticity extends JavaPlugin implements Listener {
 				}
 		}
 		@EventHandler
+		public void InventoryClick(InventoryClickEvent e) {
+			gm = Bukkit.getServer().createInventory(null, 9, DARK_AQUA + "Gamemode");
+			ItemStack creative = new ItemStack(Material.LAPIS_BLOCK);
+			ItemMeta creativeMeta = creative.getItemMeta();
+			creativeMeta.setDisplayName(RED + "Creative");
+			creative.setItemMeta(creativeMeta);
+			ItemStack adventure = new ItemStack(Material.REDSTONE_BLOCK);
+			ItemMeta adventureMeta = adventure.getItemMeta();
+			adventureMeta.setDisplayName(RED + "Adventure");
+			adventure.setItemMeta(adventureMeta);
+			ItemStack survival = new ItemStack(Material.EMERALD_BLOCK);
+			ItemMeta survivalMeta = survival.getItemMeta();
+			survivalMeta.setDisplayName(RED + "Survival");
+			survival.setItemMeta(survivalMeta);
+			ItemStack back = new ItemStack(Material.ARROW);
+			ItemMeta backMeta = back.getItemMeta();
+			backMeta.setDisplayName(BLUE + "Go Back");
+			back.setItemMeta(backMeta);
+			gm.setItem(0, creative);
+			gm.setItem(3, adventure);
+			gm.setItem(6, survival);
+			gm.setItem(8, back);
+			
+			ItemStack aCreative = new ItemStack(Material.GRASS);
+			ItemMeta aCMeta = aCreative.getItemMeta();
+			aCMeta.setDisplayName(GREEN + "Change your gamemodes!");
+			aCreative.setItemMeta(aCMeta);
+			if (e.getInventory().equals(inv)) {
+			if (e.getCurrentItem().getItemMeta().equals(aMeta)) {
+				if (e.getWhoClicked().hasPermission("admingem.admin")) {
+					//Beginning of the Admin inventory
+					ad = Bukkit.getServer().createInventory(null, 36, RED + "Admin Section");
+					ad.setItem(10, aCreative);
+					e.getWhoClicked().openInventory(ad);
+					}
+				}
+			if (e.getInventory().equals(ad)) {
+			if (e.getCurrentItem().getItemMeta().equals(aCMeta)) {
+				e.getWhoClicked().openInventory(gm);
+				}
+			}
+			if (e.getInventory().equals(gm)) {
+			if(e.getCurrentItem().getItemMeta().equals(creativeMeta)) {
+				e.getWhoClicked().setGameMode(GameMode.CREATIVE);
+			}
+			if (e.getCurrentItem().getItemMeta().equals(adventureMeta)) {
+				e.getWhoClicked().setGameMode(GameMode.ADVENTURE);
+			}
+			if (e.getCurrentItem().getItemMeta().equals(survivalMeta)) {
+				e.getWhoClicked().setGameMode(GameMode.SURVIVAL);
+				}
+			} 
+					
+					//Beginning of the Mod inventory
+			if (e.getCurrentItem().getItemMeta().equals(mMeta)) {
+					md = Bukkit.getServer().createInventory(null, 36, GREEN + "Mod Section");
+					e.getWhoClicked().openInventory(md);
+				
+						}
+				}
+	
+			}
+		
+			
+		
+		@EventHandler
 		public void onPlayerJoin(PlayerJoinEvent e) {
 			Player p = e.getPlayer();
 			
@@ -216,6 +284,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 			}
 			
 		}
+		
 		
 		@EventHandler
 		public void playerLeave(PlayerQuitEvent e) {
