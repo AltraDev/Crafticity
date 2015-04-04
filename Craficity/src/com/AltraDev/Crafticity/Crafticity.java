@@ -265,6 +265,13 @@ public class Crafticity extends JavaPlugin implements Listener {
 					e.getWhoClicked().openInventory(ad);
 					}
 				}
+			}
+			if (e.getInventory().equals(ad)) {
+				if (e.getCurrentItem().getItemMeta().equals(aCMeta)) {
+					e.getWhoClicked().openInventory(gm);
+				}
+			}
+			
 			if (e.getInventory().equals(gm)) {
 			if(e.getCurrentItem().getItemMeta().equals(creativeMeta)) {
 				e.getWhoClicked().setGameMode(GameMode.CREATIVE);
@@ -285,7 +292,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 						}
 				}
 	
-			}
+			
 		
 			
 		
