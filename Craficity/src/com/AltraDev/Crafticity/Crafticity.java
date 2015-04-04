@@ -45,7 +45,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 	 	Make the admin gem
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
-	private Inventory inv, ad, md, gm, players;
+	private Inventory inv, ad, md, gm, players, time;
 	
 	
 	Player pl;
@@ -209,6 +209,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		}
 		@EventHandler
 		public void InventoryClick(InventoryClickEvent e) {
+			//GAMEMODE INVENTORY
 			gm = Bukkit.getServer().createInventory(null, 9, DARK_AQUA + "Gamemode");
 			ItemStack creative = new ItemStack(Material.LAPIS_BLOCK);
 			ItemMeta creativeMeta = creative.getItemMeta();
@@ -230,25 +231,40 @@ public class Crafticity extends JavaPlugin implements Listener {
 			gm.setItem(3, adventure);
 			gm.setItem(6, survival);
 			gm.setItem(8, back);
+			//END OF GAMEMODE INVENTORY
 			
 			ItemStack aCreative = new ItemStack(Material.GRASS);
 			ItemMeta aCMeta = aCreative.getItemMeta();
 			aCMeta.setDisplayName(GREEN + "Change your gamemodes!");
 			aCreative.setItemMeta(aCMeta);
+			
+			ItemStack aTime = new ItemStack(Material.WATCH);
+			ItemMeta aTMeta = aTime.getItemMeta();
+			aTMeta.setDisplayName(GREEN + "Change the time!");
+			aTime.setItemMeta(aTMeta);
+			
+			ItemStack aSkull = new ItemStack(Material.SKULL_ITEM);
+			ItemMeta aSMeta = aSkull.getItemMeta();
+			aSMeta.setDisplayName(GREEN + "Players");
+			aSkull.setItemMeta(aSMeta);
+			
+			ItemStack aStop = new ItemStack(Material.REDSTONE_BLOCK);
+			ItemMeta aStopM = aStop.getItemMeta();
+			aStopM.setDisplayName(RED + "" + BOLD + "EMERGANCY STOP!");
+			aStop.setItemMeta(aStopM);
+			
 			if (e.getInventory().equals(inv)) {
 			if (e.getCurrentItem().getItemMeta().equals(aMeta)) {
 				if (e.getWhoClicked().hasPermission("admingem.admin")) {
 					//Beginning of the Admin inventory
 					ad = Bukkit.getServer().createInventory(null, 36, RED + "Admin Section");
 					ad.setItem(10, aCreative);
+					ad.setItem(13, aTime);
+					ad.setItem(16, aSkull);
+					ad.setItem(30, aStop);
 					e.getWhoClicked().openInventory(ad);
 					}
 				}
-			if (e.getInventory().equals(ad)) {
-			if (e.getCurrentItem().getItemMeta().equals(aCMeta)) {
-				e.getWhoClicked().openInventory(gm);
-				}
-			}
 			if (e.getInventory().equals(gm)) {
 			if(e.getCurrentItem().getItemMeta().equals(creativeMeta)) {
 				e.getWhoClicked().setGameMode(GameMode.CREATIVE);
