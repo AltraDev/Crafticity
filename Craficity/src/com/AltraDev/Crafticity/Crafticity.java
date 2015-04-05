@@ -17,7 +17,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +32,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 
 public class Crafticity extends JavaPlugin implements Listener {
@@ -91,7 +92,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		Player player = (Player) sender;
 		// Start of Poke Command
 		if (cmd.getName().equalsIgnoreCase("poke")) {
-			
+			Player target = Bukkit.getServer().getPlayer(args[0]);
 			if (args.length == 0) {
 				sender.sendMessage(GOLD + "Use this command to poke someone!");
 				return true;
@@ -101,8 +102,6 @@ public class Crafticity extends JavaPlugin implements Listener {
 				player.sendMessage(RED + "Poke is in cooldown!");
 				return true;
 			}
-			
-			Player target = Bukkit.getServer().getPlayer(args[0]);
 			
 			if (target == null) {
 				sender.sendMessage(GOLD + "Could not find player");
@@ -137,7 +136,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		} //END OF THE SERVER BOOK COMMAND
 		//START OF THE ADMINGEM
 		if (cmd.getName().equalsIgnoreCase("admingem")) {
-			if (!player.hasPermission("admingem.use")) {
+			if (!player.hasPermission("crafticity.admingem.use")) {
 				player.sendMessage(RED + "You do not have permission for an " + DARK_AQUA + "AdminGem" + RED + "!");
 			} else {
 				diaMeta.setDisplayName(DARK_AQUA + "AdminGem");
@@ -146,6 +145,405 @@ public class Crafticity extends JavaPlugin implements Listener {
 			}
 			return true;
 		} //END OF THE ADMINGEM
+		//START OF INFINITE EFFECT
+		if (cmd.getName().equalsIgnoreCase("ieffect")) {	
+			int amp = 1;
+			if (!player.hasPermission("crafticity.ieffect")) {
+				player.sendMessage(RED + "You do not have permission to use " + DARK_AQUA + "iEffect" + RED + "!");
+			} else {
+				if (args.length == 0) {
+					player.sendMessage(GOLD + "Enables you to create infinite effects");
+					player.sendMessage(GOLD + "Usage: " + RED + "/ieffect PLAYER EFFECT STRENGTH" + GOLD + ", " + RED + "/ieffect EFFECT STRENGTH");
+					player.sendMessage(GOLD + "To see a list of effects do " + RED + "/ieffect list");
+				} else {
+					switch (args[0].toLowerCase()) {
+					case "list": 
+						player.sendMessage(GOLD + "Available Effects: " + DARK_AQUA + "Absorption" + GOLD + ", " + DARK_AQUA + "Blindness" + GOLD + ", " + DARK_AQUA + "Confusion" + GOLD + ", " + DARK_AQUA + "Resistance" + GOLD + ", " + DARK_AQUA + "Haste" + GOLD + ", " + DARK_AQUA + "Fire_Resistance" + GOLD + ", " + DARK_AQUA + "Harm" + GOLD + ", " + DARK_AQUA + "Heal" + GOLD + ", " + DARK_AQUA + "Health_Boost" + GOLD + ", " + DARK_AQUA + "Hunger" + GOLD + ", " + DARK_AQUA + "Strength" + GOLD + ", " + DARK_AQUA + "Invisibility" + GOLD + ", " + DARK_AQUA + "Jump" + GOLD + ", " + DARK_AQUA + "Night_Vision" + GOLD + ", " + DARK_AQUA + "Poison" + GOLD + ", " + DARK_AQUA + "Regeneration" + GOLD + ", " + DARK_AQUA + "Saturation" + GOLD + ", " + DARK_AQUA + "Slowness" + GOLD + ", " + DARK_AQUA + "Mining_Fatigue" + GOLD + ", " + DARK_AQUA + "Speed" + GOLD + ", " + DARK_AQUA + "Water_Breathing" + GOLD + ", " + DARK_AQUA + "Weakness" + GOLD + ", " + DARK_AQUA + "Wither");
+						break;
+					case "absorption":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, amp));
+						break;
+					case "blindness":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, amp));
+						break;
+					case "confusion":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, amp));
+						break;
+					case "resistance":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, amp));
+						break;
+					case "haste":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, amp));
+						break;
+					case "fire_resistance":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, amp));
+						break;
+					case "harm":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.HARM, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.HARM, Integer.MAX_VALUE, amp));
+						break;
+					case "heal":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, Integer.MAX_VALUE, amp));
+						break;
+					case "health_boost":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, amp));
+						break;
+					case "hunger":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, amp));
+						break;
+					case "strength":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, amp));
+						break;
+					case "invisibility":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, amp));
+						break;
+					case "jump":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, amp));
+						break;
+					case "night_vision":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, amp));
+						break;
+					case "poison":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, Integer.MAX_VALUE, amp));
+						break;
+					case "regeneration":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, amp));
+						break;
+					case "saturation":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, amp));
+						break;
+					case "slowness":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, amp));
+						break;
+					case "mining_fatigue":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Integer.MAX_VALUE, amp));
+						break;
+					case "speed":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, amp));
+						break;
+					case "water_breathing":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE, amp));
+						break;
+					case "weakness":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, amp));
+						break;
+					case "wither":
+						if (!(args.length == 2)) {
+							player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, Integer.MAX_VALUE, 1));
+							break;
+						}
+						amp = Integer.parseInt(args[1]);
+						player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, Integer.MAX_VALUE, amp));
+						break;
+					default:
+						Player target = Bukkit.getServer().getPlayer(args[0]);
+						if (target == null) {
+							player.sendMessage(RED + "Could not find player!");
+						} else {
+							switch (args[1].toLowerCase()) {
+							case "absorption":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, amp));
+								break;
+							case "blindness":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, amp));
+								break;
+							case "confusion":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, amp));
+								break;
+							case "resistance":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, amp));
+								break;
+							case "haste":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, amp));
+								break;
+							case "fire_resistance":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, amp));
+								break;
+							case "harm":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.HARM, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.HARM, Integer.MAX_VALUE, amp));
+								break;
+							case "heal":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, Integer.MAX_VALUE, amp));
+								break;
+							case "health_boost":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, amp));
+								break;
+							case "hunger":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, amp));
+								break;
+							case "strength":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, amp));
+								break;
+							case "invisibility":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, amp));
+								break;
+							case "jump":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, amp));
+								break;
+							case "night_vision":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, amp));
+								break;
+							case "poison":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, Integer.MAX_VALUE, amp));
+								break;
+							case "regeneration":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, amp));
+								break;
+							case "saturation":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, amp));
+								break;
+							case "slowness":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, amp));
+								break;
+							case "mining_fatigue":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, Integer.MAX_VALUE, amp));
+								break;
+							case "speed":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, amp));
+								break;
+							case "water_breathing":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE, amp));
+								break;
+							case "weakness":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, amp));
+								break;
+							case "wither":
+								if (!(args.length == 3)) {
+									target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, Integer.MAX_VALUE, 1));
+									break;
+								}
+								amp = Integer.parseInt(args[2]);
+								target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, Integer.MAX_VALUE, amp));
+								break;
+							default:
+								player.sendMessage(RED + "Invalid Effect!");
+								}
+							}
+							break;
+						}
+					}
+				}
+			}
+		//END OF INFINITE EFFECT
 		return true;
 	}
 // END OF COMMANDS

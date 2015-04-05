@@ -12,9 +12,14 @@ commands:
     admingem:
         usage: /<command>
         description: Admingem for staff!
+    ieffect:
+        usage: /<command>
+        description: Enables you to create infinite potion effects
     
 permissions:
-    admingem.use:
+    crafticity.admingem.use:
         description: Admingem use
         default: op
-   
+    crafticity.ieffect:
+        description: Ability to create infinite potion effect
+        default: op
