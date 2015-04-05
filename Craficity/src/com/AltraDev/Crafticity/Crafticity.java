@@ -17,6 +17,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,7 +46,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 	 	Make the admin gem
 	 */
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
-	private Inventory inv, ad, md, gm, players, time;
+	private Inventory inv, adminInv, md, gm, players, time, test;
 	
 	
 	Player pl;
@@ -126,7 +127,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		if (cmd.getName().equalsIgnoreCase("Testbook")) {
 			ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
 			BookMeta bm = (BookMeta) bs.getItemMeta();
-			bm.addPage(DARK_AQUA + "     " + BOLD + "Crafticity \n"
+			bm.addPage(DARK_AQUA + "Crafticity \n" 
 					);
 			bs.setItemMeta(bm);
 			Inventory inv = player.getInventory();
@@ -234,9 +235,9 @@ public class Crafticity extends JavaPlugin implements Listener {
 			//END OF GAMEMODE INVENTORY
 			
 			ItemStack aCreative = new ItemStack(Material.GRASS);
-			ItemMeta aCMeta = aCreative.getItemMeta();
-			aCMeta.setDisplayName(GREEN + "Change your gamemodes!");
-			aCreative.setItemMeta(aCMeta);
+			ItemMeta aMetaC = aCreative.getItemMeta();
+			aMetaC.setDisplayName(GREEN + "Change your gamemodes!");
+			aCreative.setItemMeta(aMetaC);
 			
 			ItemStack aTime = new ItemStack(Material.WATCH);
 			ItemMeta aTMeta = aTime.getItemMeta();
@@ -253,16 +254,19 @@ public class Crafticity extends JavaPlugin implements Listener {
 			aStopM.setDisplayName(RED + "" + BOLD + "EMERGANCY STOP!");
 			aStop.setItemMeta(aStopM);
 			
+			md = Bukkit.getServer().createInventory(null, 36, GREEN + "Mod Section");
+			adminInv = Bukkit.getServer().createInventory(null, 36, RED + "Admin Section");
+			
 			if (e.getInventory().equals(inv)) {
 			if (e.getCurrentItem().getItemMeta().equals(aMeta)) {
 				if (e.getWhoClicked().hasPermission("admingem.admin")) {
 					//Beginning of the Admin inventory
-					ad = Bukkit.getServer().createInventory(null, 36, RED + "Admin Section");
-					ad.setItem(10, aCreative);
-					ad.setItem(13, aTime);
-					ad.setItem(16, aSkull);
-					ad.setItem(30, aStop);
-					e.getWhoClicked().openInventory(ad);
+					adminInv.setItem(10, aCreative);
+					adminInv.setItem(13, aTime);
+					adminInv.setItem(16, aSkull);
+					adminInv.setItem(31, aStop);
+					adminInv.setItem(28, back);
+					e.getWhoClicked().openInventory(adminInv);
 					}
 				}
 				if (e.getCurrentItem().getItemMeta().equals(mMeta)) {
@@ -270,17 +274,13 @@ public class Crafticity extends JavaPlugin implements Listener {
 					e.getWhoClicked().openInventory(md);
 				}
 			}
-			if (e.getInventory().equals(ad)) {
-			if (e.getCurrentItem().getItemMeta().equals(aCMeta)) {
-				if (e.getWhoClicked().getGameMode().equals(GameMode.SURVIVAL)) {
-					e.getWhoClicked().setGameMode(GameMode.CREATIVE);
+			if (e.getInventory().equals(adminInv)) {
+				if (e.getCurrentItem().getItemMeta().equals(aMetaC)) {
+					e.getWhoClicked().closeInventory();
 				}
-				else {
-					e.getWhoClicked().setGameMode(GameMode.SURVIVAL);
-				}
-			}
 			}
 		}
+		
 			/*if (e.getInventory().equals(ad)) {
 				if (e.getCurrentItem().getItemMeta().equals(aCMeta)) {
 					e.getWhoClicked().openInventory(gm);
