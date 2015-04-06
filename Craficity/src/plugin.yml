@@ -15,6 +15,9 @@ commands:
     ieffect:
         usage: /<command>
         description: Enables you to create infinite potion effects
+    iclear:
+        usage: /<command>
+        description: Lets you clear all potion effects
     
 permissions:
     crafticity.admingem.use:
@@ -22,4 +25,7 @@ permissions:
         default: op
     crafticity.ieffect:
         description: Ability to create infinite potion effect
+        default: op
+    crafticity.iclear:
+        description: Ability to clear all potion effects
         default: op
