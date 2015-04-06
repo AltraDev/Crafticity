@@ -126,11 +126,9 @@ public class Crafticity extends JavaPlugin implements Listener {
 		if (cmd.getName().equalsIgnoreCase("Testbook")) {
 			ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
 			BookMeta bm = (BookMeta) bs.getItemMeta();
-			bm.addPage(DARK_AQUA + "Crafticity \n" + "CancerCraft!", "niggers \n" + "fdsafhjdskafhjkldashfjkldsahfjkldashkjlfhdasjkfhjklsdhfjklashfjklasdhfjkldshjkfladhfdsalfjlk" 
-					);
+			bm.addPage(DARK_AQUA + "Crafticity \n" + "\n"+ DARK_GREEN + "Server Rules: \n" + BLUE + " 1. No Advertising \n" + DARK_GRAY + "(Will result in ban or mute) \n" + BLUE + " 2. No impersonating a staff member\n" + DARK_GRAY + "(Will result in mute or ban)\n" + BLUE + " 3. Keep swearing to a minimal\n" + DARK_GRAY + "(Will result in mute)\n", BLUE + " 4. No Sexual, Racial, Rude comments towards anyone\n" + DARK_GRAY + "	(Will result in mute)\n" + BLUE + " 5. DO NOT disrespect staff\n" + DARK_GRAY + "(Will result in ban or mute)" + BLUE + " 6. Do spam or use all caps\n" + DARK_GRAY + "(Will result in mute)",
+				DARK_GREEN + "Server Store: \n"	+ "\n" + DARK_AQUA + "Type /shop in-game! \n" + BLUE + "Welcome to the Crafticity shop! All details of the items are in the shop!\n" + DARK_GRAY + "[Coal]" + BLUE + "$5\n" + GRAY + "[Iron]" + BLUE + "$10\n" + GOLD + "[Gold]" + BLUE + "$25\n" + RED + "[Redstone]" + BLUE + "$35\n" + AQUA + "[Diamond]" + BLUE + "$50"  );
 			bs.setItemMeta(bm);
-			Inventory inv = player.getInventory();
-			inv.clear();
 			player.getInventory().setItem(2, bs);
 			return true;
 		} //END OF THE SERVER BOOK COMMAND
