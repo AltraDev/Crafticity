@@ -6,8 +6,9 @@ commands:
     poke:
         usage: /<command>
         description: Poke other players.
-    testbook:
+    serverbook:
         usage: /<command>
+        aliases: [sb]
         description: Testing books
     admingem:
         usage: /<command>

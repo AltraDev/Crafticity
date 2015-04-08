@@ -58,7 +58,8 @@ public class Crafticity extends JavaPlugin implements Listener {
 	ItemStack mod = new ItemStack(Material.EMERALD);
 	ItemMeta mMeta = mod.getItemMeta();
 	
-	
+	ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
+	BookMeta bm = (BookMeta) bs.getItemMeta();
 	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(this, this);
 		Bukkit.getServer().getLogger().info("Crafticity has been enabled!");
@@ -123,15 +124,15 @@ public class Crafticity extends JavaPlugin implements Listener {
 		}
 		//End of poke command!
 		//START OF THE SERVER BOOK COMMAND
-		if (cmd.getName().equalsIgnoreCase("Testbook")) {
-			ItemStack bs = new ItemStack(Material.WRITTEN_BOOK);
-			BookMeta bm = (BookMeta) bs.getItemMeta();
+		if (cmd.getName().equalsIgnoreCase("serverbook")) {
 			bm.addPage(DARK_AQUA + "Crafticity \n" + "\n"+ DARK_GREEN + "Server Rules: \n" + BLUE + " 1. No Advertising \n" + DARK_GRAY + "(Will result in ban or mute) \n" + BLUE + " 2. No impersonating a staff member\n" + DARK_GRAY + "(Will result in mute or ban)\n" + BLUE + " 3. Keep swearing to a minimal\n" + DARK_GRAY + "(Will result in mute)\n", BLUE + " 4. No Sexual, Racial, Rude comments towards anyone\n" + DARK_GRAY + "(Will result in mute)\n" + BLUE + " 5. DO NOT disrespect staff\n" + DARK_GRAY + "(Will result in ban or mute)" + BLUE + " 6. Do spam or use all caps\n" + DARK_GRAY + "(Will result in mute)",
 				DARK_GREEN + "Server Store: \n" + DARK_AQUA + "Type /shop in-game! \n" + BLUE + "Welcome to the Crafticity shop! All details of the items are in the shop!\n" + DARK_GREEN + "Ranks: \n" + DARK_GRAY + "[Coal]" + BLUE + "- $5\n" + GRAY + "[Iron]" + BLUE + "- $10\n" + GOLD + "[Gold]" + BLUE + "- $25\n" + RED + "[Redstone]" + BLUE + "- $35\n" + AQUA + "[Diamond]" + BLUE + "- $50",
-				DARK_GREEN + "In-Game Money: \n" + "\n" + GOLD + "[10k]" + BLUE + " - $10\n" + GOLD + "[25k]" + BLUE + "- $20\n" + GOLD + "[50k]" + BLUE + "- $35\n" + GOLD + "[100k]" + BLUE + "- $60",
+				DARK_GREEN + "In-Game Money: \n" + "\n" + GOLD + "[10k]" + BLUE + " - $10\n" + GOLD + "[25k]" + BLUE + "- $20\n" + GOLD + "[50k]" + BLUE + "- $35\n" + GOLD + "[100k]" + BLUE + "- $50",
 				DARK_GREEN + "Others: \n" + "\n" + RED + "[Unban]" + BLUE + "- $10\n" + RED + "[Custom Prefix]" + BLUE + "- $5");
+			bm.setAuthor(DARK_AQUA + "Crafticity");
+			bm.setTitle(GOLD + "Crafticity Server");
 			bs.setItemMeta(bm);
-			player.getInventory().setItem(2, bs);
+			player.getInventory().addItem(bs);
 			return true;
 		} //END OF THE SERVER BOOK COMMAND
 		//START OF THE ADMINGEM
@@ -471,29 +472,32 @@ public class Crafticity extends JavaPlugin implements Listener {
 			aStopM.setDisplayName(RED + "" + BOLD + "EMERGANCY STOP!");
 			aStop.setItemMeta(aStopM);
 			
+			Player p = (Player) e.getWhoClicked();
+			
 			md = Bukkit.getServer().createInventory(null, 36, GREEN + "Mod Section");
 			adminInv = Bukkit.getServer().createInventory(null, 36, RED + "Admin Section");
 			
 			if (e.getInventory().equals(inv)) {
 			if (e.getCurrentItem().getItemMeta().equals(aMeta)) {
-				if (e.getWhoClicked().hasPermission("admingem.admin")) {
+				if (p.hasPermission("admingem.admin")) {
 					//Beginning of the Admin inventory
 					adminInv.setItem(10, aCreative);
 					adminInv.setItem(13, aTime);
 					adminInv.setItem(16, aSkull);
 					adminInv.setItem(31, aStop);
 					adminInv.setItem(28, back);
-					e.getWhoClicked().openInventory(adminInv);
+					p.openInventory(adminInv);
 					}
 				}
 				if (e.getCurrentItem().getItemMeta().equals(mMeta)) {
 					md = Bukkit.getServer().createInventory(null, 36, GREEN + "Mod Section");
-					e.getWhoClicked().openInventory(md);
+					p.openInventory(md);
 				}
 			}
 			if (e.getInventory().equals(adminInv)) {
 				if (e.getCurrentItem().getItemMeta().equals(aMetaC)) {
-					e.getWhoClicked().closeInventory();
+					e.setCancelled(true);
+					p.openInventory(gm);
 				}
 			}
 		}
@@ -527,10 +531,12 @@ public class Crafticity extends JavaPlugin implements Listener {
 		public void onPlayerJoin(PlayerJoinEvent e) {
 			Player p = e.getPlayer();
 			
-			if (!p.hasPlayedBefore()) {
-				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
-			} else {
+			if (p.hasPlayedBefore()) {
 				p.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 10, 1);
+				
+			} else {
+				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
+				p.getInventory().setItem(8, bs);
 			}
 			
 		}
