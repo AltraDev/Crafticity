@@ -536,6 +536,13 @@ public class Crafticity extends JavaPlugin implements Listener {
 				
 			} else {
 				p.playSound(p.getLocation(), Sound.NOTE_PLING, 10, 1);
+				bm.addPage(DARK_AQUA + "Crafticity \n" + "\n"+ DARK_GREEN + "Server Rules: \n" + BLUE + " 1. No Advertising \n" + DARK_GRAY + "(Will result in ban or mute) \n" + BLUE + " 2. No impersonating a staff member\n" + DARK_GRAY + "(Will result in mute or ban)\n" + BLUE + " 3. Keep swearing to a minimal\n" + DARK_GRAY + "(Will result in mute)\n", BLUE + " 4. No Sexual, Racial, Rude comments towards anyone\n" + DARK_GRAY + "(Will result in mute)\n" + BLUE + " 5. DO NOT disrespect staff\n" + DARK_GRAY + "(Will result in ban or mute)" + BLUE + " 6. Do spam or use all caps\n" + DARK_GRAY + "(Will result in mute)",
+						DARK_GREEN + "Server Store: \n" + DARK_AQUA + "Type /shop in-game! \n" + BLUE + "Welcome to the Crafticity shop! All details of the items are in the shop!\n" + DARK_GREEN + "Ranks: \n" + DARK_GRAY + "[Coal]" + BLUE + "- $5\n" + GRAY + "[Iron]" + BLUE + "- $10\n" + GOLD + "[Gold]" + BLUE + "- $25\n" + RED + "[Redstone]" + BLUE + "- $35\n" + AQUA + "[Diamond]" + BLUE + "- $50",
+						DARK_GREEN + "In-Game Money: \n" + "\n" + GOLD + "[10k]" + BLUE + " - $10\n" + GOLD + "[25k]" + BLUE + "- $20\n" + GOLD + "[50k]" + BLUE + "- $35\n" + GOLD + "[100k]" + BLUE + "- $50",
+						DARK_GREEN + "Others: \n" + "\n" + RED + "[Unban]" + BLUE + "- $10\n" + RED + "[Custom Prefix]" + BLUE + "- $5");
+					bm.setAuthor(DARK_AQUA + "Crafticity");
+					bm.setTitle(GOLD + "Crafticity Server");
+					bs.setItemMeta(bm);
 				p.getInventory().setItem(8, bs);
 			}
 			
