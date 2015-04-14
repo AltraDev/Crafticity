@@ -30,3 +30,6 @@ permissions:
     crafticity.iclear:
         description: Ability to clear all potion effects
         default: op
+    crafticity.poke:
+        description: Poke someone
+        default: op

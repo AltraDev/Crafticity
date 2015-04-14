@@ -49,6 +49,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 	public ArrayList<UUID> cooldown = new ArrayList<UUID>(); //Poke CoolDown
 	private Inventory inv, adminInv, md, gm, players, time, test;
 	
+	String ct = GRAY + "[" + RED + "Crafticity" + GRAY + "] ";
 	
 	Player pl;
 	ItemStack dia = new ItemStack(Material.DIAMOND);
@@ -67,9 +68,9 @@ public class Crafticity extends JavaPlugin implements Listener {
 		
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
-				Bukkit.getServer().broadcastMessage(GRAY + "[" + RED + "Crafticity" + GRAY + "] " + DARK_AQUA + "Join our website and donate:"+ AQUA + " crafticity.enjin.com");
+				Bukkit.getServer().broadcastMessage(ct + DARK_AQUA + "Join our website and donate:"+ AQUA + " crafticity.enjin.com");
 			}
-		}, 20, 20 * 60 * 10);
+		}, 20, 20 * 60 * 15);
 		
 	}
 	
@@ -93,6 +94,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 		Player player = (Player) sender;
 		// Start of Poke Command
 		if (cmd.getName().equalsIgnoreCase("poke")) {
+			if(player.hasPermission("crafticity.poke")) {
 			Player target = Bukkit.getServer().getPlayer(args[0]);
 			if (args.length == 0) {
 				sender.sendMessage(GOLD + "Use this command to poke someone!");
@@ -121,6 +123,7 @@ public class Crafticity extends JavaPlugin implements Listener {
 			cooldown(player);
 			
 		return true;
+			}
 		}
 		//End of poke command!
 		//START OF THE SERVER BOOK COMMAND
