@@ -95,16 +95,17 @@ public class Crafticity extends JavaPlugin implements Listener {
 		// Start of Poke Command
 		if (cmd.getName().equalsIgnoreCase("poke")) {
 			if(player.hasPermission("crafticity.poke")) {
-			Player target = Bukkit.getServer().getPlayer(args[0]);
+			
 			if (args.length == 0) {
 				sender.sendMessage(GOLD + "Use this command to poke someone!");
 				return true;
 			}
-			
 			if (cooldown.contains(player.getUniqueId())) {
 				player.sendMessage(RED + "Poke is in cooldown!");
 				return true;
 			}
+			
+			Player target = Bukkit.getServer().getPlayer(args[0]);
 			
 			if (target == null) {
 				sender.sendMessage(GOLD + "Could not find player");
