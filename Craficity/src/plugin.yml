@@ -19,6 +19,9 @@ commands:
     iclear:
         usage: /<command>
         description: Lets you clear all potion effects
+    vote:
+        usage: /<command>
+        description: Vote for the server!
     
 permissions:
     crafticity.admingem.use:

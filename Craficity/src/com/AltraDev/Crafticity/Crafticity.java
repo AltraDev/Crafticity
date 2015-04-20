@@ -1,6 +1,7 @@
 package com.AltraDev.Crafticity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -69,8 +70,9 @@ public class Crafticity extends JavaPlugin implements Listener {
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				Bukkit.getServer().broadcastMessage(ct + DARK_AQUA + "Join our website and donate:"+ AQUA + " crafticity.enjin.com");
+				Bukkit.getServer().broadcastMessage(ct + DARK_AQUA + "Type /vote and vote for the server to receive rewards!");
 			}
-		}, 20, 20 * 60 * 15);
+		}, 20, 20 * 60 * 20);
 		
 	}
 	
@@ -150,6 +152,10 @@ public class Crafticity extends JavaPlugin implements Listener {
 			}
 			return true;
 		} //END OF THE ADMINGEM
+		if(cmd.getName().equalsIgnoreCase("vote")) {
+			sender.sendMessage(DARK_AQUA + "Website 1: http://www.minestatus.net/130797-crafticity \n" +  "Website 2: http://minecraftservers.org/server/226381\n" + "Website 3: [Disabled] \n");
+		return true;
+		}
 		//START OF INFINITE EFFECT
 		if (cmd.getName().equalsIgnoreCase("ieffect")) {	
 			int amp = 1;
